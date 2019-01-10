@@ -15,6 +15,32 @@
 1. [Requirements](#requirements)
 1. [Development](#development)
 
+
+# CRUD |	url |	queries
+--- | --- | --- 
+CREATE | /restaurant/:id/create	| 
+  restaurant_id,
+  reviewer_id,
+  reviewer_nickname,
+  reviewer_location,
+  reviewer_review_count,
+  reviewer_date_dined,
+  review_id,
+  review_ratings_overall,
+  review_ratings_food,
+  review_ratings_service,
+  review_ratings_ambience,
+  review_ratings_value,
+  review_ratings_noise_level,
+  review_recommend_to_friend,
+  review_text,
+  review_helpful_count,
+  review_tags
+READ |	/restaurant/:id/reviews	| restaurant_id
+UPDATE | api/restaurant/:id/reviews/update |	restaurant_id, review_id, modified entry
+DELETE |	api/restaurant/:id/reviews/delete	| restaurant_id, review_id
+
+
 ## Usage
 
 > 
