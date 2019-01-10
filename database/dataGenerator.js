@@ -1,7 +1,7 @@
 const faker = require('faker');
-const db = require('./index.js');
-const saratogaData = require('./the_saratoga.json');
+const fs = require('fs');
 
+// -------- faker functions -------- //
 const generateNickname = () => faker.name.firstName() + faker.name.lastName().slice(0, 1);
 const generateLocation = () => faker.address.city();
 const generateReviewCount = () => faker.random.number({ min: 1, max: 27 });
@@ -74,51 +74,64 @@ const generateTags = () => {
 };
 const generateRestaurantId = () => faker.random.number({ min: 2, max: 100 });
 
-const generateReviews = (callback) => {
-  const reviews = [];
-  for (let i = 0; i <= 3000; i += 1) {
-    reviews.push({
-      restaurant: {
-        id: generateRestaurantId(),
+
+// -------- review generator --------- //
+const generateReview = (i) => {
+  const newReview = {
+    restaurant: {
+      id: generateRestaurantId(),
+    },
+    reviewer: {
+      id: i,
+      nickname: generateNickname(),
+      location: generateLocation(),
+      review_count: generateReviewCount(),
+      date_dined: generateDateDined(),
+    },
+    review: {
+      id: i,
+      ratings: {
+        overall: generateRatings(),
+        food: generateRatings(),
+        service: generateRatings(),
+        ambience: generateRatings(),
+        value: generateRatings(),
+        noise_level: generateNoiseLevel(),
       },
-      reviewer: {
-        id: i,
-        nickname: generateNickname(),
-        location: generateLocation(),
-        review_count: generateReviewCount(),
-        date_dined: generateDateDined(),
-      },
-      review: {
-        id: i,
-        ratings: {
-          overall: generateRatings(),
-          food: generateRatings(),
-          service: generateRatings(),
-          ambience: generateRatings(),
-          value: generateRatings(),
-          noise_level: generateNoiseLevel(),
-        },
-        recommend_to_friend: generateRecommend(),
-        text: generateReviewContent(),
-        helpful_count: generateHelpfulCount(),
-        tags: generateTags(),
-      },
-    });
-  }
-  callback(reviews.concat(saratogaData));
+      recommend_to_friend: generateRecommend(),
+      text: generateReviewContent(),
+      helpful_count: generateHelpfulCount(),
+      tags: generateTags(),
+    },
+  };
+
+  return newReview;
 };
 
-generateReviews((reviews) => {
-  db.conn.then(() => {
-    db.save(reviews, (err, res) => {
-      if (err) {
-        return console.log(err);
-      }
-      db.conn.close();
-      return console.log('review got inserted', res);
-    });
-  })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+
+// -------- save review to CSV file -------- //
+const saveToCSV = (content) => {
+  fs.writeFile('/generatedData2.csv', content, (err) => {
+    if (err) {
+      console.error(err)
+      return;
+    }
+    console.log('+++Successfully added review', content.review.id);
+  });
+};
+
+// -------- create and save reviews to csv -------- //
+const createAndSaveReviews = (num) => {
+  console.log('create and save: ', num);
+  if (num < 1) { return; }
+  for (let i = 1; i <= num; i += 1) {
+    const review = generateReview(i);
+    console.log('latest review: ', review);
+    saveToCSV(review);
+  }
+};
+
+// -------- initialization -------- //
+const numberOfReviews = 2;
+console.log('initialize')
+createAndSaveReviews(numberOfReviews);
