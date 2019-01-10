@@ -10,6 +10,7 @@
   "scripts": {
     "start": "node database/seed.js && node server/index.js",
     "seed": "node database/seed.js",
+    "seedPostgres": "psql -U postgres < database/schema.sql",
     "server-dev": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
     "test": "jest",
