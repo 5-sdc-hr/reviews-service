@@ -5,7 +5,7 @@ const port = 3004;
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const dbMongo = require('../database/indexMongo.js');
+const dbMongo = require('../database/mongoIndex.js');
 
 app.use(morgan('tiny'));
 app.use(bodyParser());
