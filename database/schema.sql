@@ -1,14 +1,22 @@
--- DROP DATABASE IF EXISTS chat;
+DROP DATABASE IF EXISTS fec;
 
 CREATE DATABASE fec;
 
 \c fec;
 
-create schema friends;
+CREATE schema friends;
 
-create table friends.test(firstname CHAR(15), lastname CHAR(15));
+CREATE TABLE friends.test(
+  id SERIAL NOT NULL, 
+  firstname CHAR(15), 
+  lastname CHAR(15),
+  CONSTRAINT persons_pkey PRIMARY KEY (id)
+);
 
-insert into friends.test values('mike', 'smith2');
+INSERT INTO friends.test VALUES(0, 'mike', 'smith2');
+
+COPY friends.test(firstname, lastname) 
+FROM '/Users/ronarbel/Desktop/reviews-service/database/generatedData.csv' DELIMITER ',';
 
 -- CREATE TABLE rooms (
 --   id int NOT NULL AUTO_INCREMENT,
