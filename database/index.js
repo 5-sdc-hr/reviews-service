@@ -1,4 +1,4 @@
-const uri = 'mongodb://172.17.0.2:27017/fec';
+const uri = 'mongodb://localhost/fecReviews';
 const mongoose = require('mongoose');
 
 const serverOptions = {
@@ -11,6 +11,10 @@ const serverOptions = {
 };
 const conn = mongoose.createConnection(uri, {
   server: serverOptions,
+});
+conn.on('error', console.error.bind(console, 'MONGO connection error:'));
+conn.once('open', function() {
+  console.log('+++ Connected to MongoDB')
 });
 
 const reviewsSchema = mongoose.Schema({
