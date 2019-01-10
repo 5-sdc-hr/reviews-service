@@ -16,67 +16,91 @@ const generateTags = () => {
   let randNum = faker.random.number({ min: 0, max: 6 });
   while (randNum) {
     tagsArr.push(faker.random.arrayElement([
-      'Late-night Find',
-      'Waterfront',
-      'Great for Lunch',
-      'Happy Hour',
-      'Bar Seating',
-      'Worth the Drive',
-      'Creative Cuisine',
-      'Hot Spot',
-      'Paleo Friendly',
-      'Afternoon Tea',
-      'Sunday Lunch',
-      'Gluten Free Options',
-      'Spicy',
-      'Good for Birthdays',
-      'Afternoon Coffee',
-      'Good for Groups',
-      'Notable Wine List',
-      'Fit for Foodies',
-      'Good Vegetarian Options',
-      'Scenic View',
-      'Handcrafted Cocktails',
-      'People Watching',
-      'Good for Anniversaries',
-      'Quiet Conversation',
-      'Disabled Access',
-      'Local Ingredients',
-      'Seasonal',
-      'Fun',
-      'Pre/post Theatre',
-      'Authentic',
-      'Live Sports',
-      'Vibrant Bar Scene',
-      'Great for Outdoor Dining',
-      'Comfort Food',
-      'Great Beer',
-      'Tasting Menu',
-      'Tapas',
-      'Organic',
-      'Vegan',
-      'Live Music',
-      'Special Occasion',
-      'Business Meals',
-      'Quick Bite',
-      'Healthy',
-      'Great for Brunch',
-      'Organic',
-      'Romantic',
-      'Good for a Date',
-      'Neighborhood Gem',
-      'Cozy',
-      'Casual',
+      '"Late-night Find"',
+      '"Waterfront"',
+      '"Great for Lunch"',
+      '"Happy Hour"',
+      '"Bar Seating"',
+      '"Worth the Drive"',
+      '"Creative Cuisine"',
+      '"Hot Spot"',
+      '"Paleo Friendly"',
+      '"Afternoon Tea"',
+      '"Sunday Lunch"',
+      '"Gluten Free Options"',
+      '"Spicy"',
+      '"Good for Birthdays"',
+      '"Afternoon Coffee"',
+      '"Good for Groups"',
+      '"Notable Wine List"',
+      '"Fit for Foodies"',
+      '"Good Vegetarian Options"',
+      '"Scenic View"',
+      '"Handcrafted Cocktails"',
+      '"People Watching"',
+      '"Good for Anniversaries"',
+      '"Quiet Conversation"',
+      '"Disabled Access"',
+      '"Local Ingredients"',
+      '"Seasonal"',
+      '"Fun"',
+      '"Pre/post Theatre"',
+      '"Authentic"',
+      '"Live Sports"',
+      '"Vibrant Bar Scene"',
+      '"Great for Outdoor Dining"',
+      '"Comfort Food"',
+      '"Great Beer"',
+      '"Tasting Menu"',
+      '"Tapas"',
+      '"Organic"',
+      '"Vegan"',
+      '"Live Music"',
+      '"Special Occasion"',
+      '"Business Meals"',
+      '"Quick Bite"',
+      '"Healthy"',
+      '"Great for Brunch"',
+      '"Organic"',
+      '"Romantic"',
+      '"Good for a Date"',
+      '"Neighborhood Gem"',
+      '"Cozy"',
+      '"Casual"',
     ]));
     randNum -= 1;
   }
   return tagsArr;
 };
-const generateRestaurantId = () => faker.random.number({ min: 2, max: 100 });
+const generateRestaurantId = () => faker.random.number({ min: 1, max: 10000000 });
 
 
 // -------- review generator --------- //
 const generateReview = (i) => {
+  const newReview = [
+    generateRestaurantId(),
+    i,
+    `'${generateNickname()}'`,
+    `'${generateLocation()}'`,
+    generateReviewCount(),
+    `'${generateDateDined()}'`,
+    i,
+    generateRatings(),
+    generateRatings(),
+    generateRatings(),
+    generateRatings(),
+    generateRatings(),
+    `'${generateNoiseLevel()}'`,
+    generateRecommend(),
+    `'${generateReviewContent()}'`,
+    generateHelpfulCount(),
+    `"{${generateTags()}}"`,
+  ];
+
+  return newReview.toString();
+};
+
+const generateReview2 = (i) => {
   const newReview = {
     restaurant: {
       id: generateRestaurantId(),
@@ -111,12 +135,12 @@ const generateReview = (i) => {
 
 // -------- save review to CSV file -------- //
 const saveToCSV = (content) => {
-  fs.writeFile('/generatedData2.csv', content, (err) => {
+  fs.appendFile('generatedData.csv', content + "\n", (err) => {
     if (err) {
       console.error(err)
       return;
     }
-    console.log('+++Successfully added review', content.review.id);
+    console.log('+++Successfully added review');
   });
 };
 
@@ -126,12 +150,12 @@ const createAndSaveReviews = (num) => {
   if (num < 1) { return; }
   for (let i = 1; i <= num; i += 1) {
     const review = generateReview(i);
-    console.log('latest review: ', review);
+    console.log('latest review: ', i);
     saveToCSV(review);
   }
 };
 
 // -------- initialization -------- //
-const numberOfReviews = 2;
-console.log('initialize')
+const numberOfReviews = 5;
+console.log('initialize');
 createAndSaveReviews(numberOfReviews);
