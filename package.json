@@ -12,6 +12,7 @@
     "server-dev": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
     "fecSeed": "node database/seed.js",
+    "generateData": "node datagenerator.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --colors",
