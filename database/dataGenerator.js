@@ -100,12 +100,44 @@ const generateReview = (i) => {
   return newReview.toString();
 };
 
+const generateReview2 = (i) => {
+  const newReview = {
+    restaurant: {
+      id: generateRestaurantId(),
+    },
+    reviewer: {
+      id: i,
+      nickname: generateNickname(),
+      location: generateLocation(),
+      review_count: generateReviewCount(),
+      date_dined: generateDateDined(),
+    },
+    review: {
+      id: i,
+      ratings: {
+        overall: generateRatings(),
+        food: generateRatings(),
+        service: generateRatings(),
+        ambience: generateRatings(),
+        value: generateRatings(),
+        noise_level: generateNoiseLevel(),
+      },
+      recommend_to_friend: generateRecommend(),
+      text: generateReviewContent(),
+      helpful_count: generateHelpfulCount(),
+      tags: generateTags(),
+    },
+  };
+
+  return newReview;
+};
+
 
 // -------- save review to CSV file -------- //
-const saveToCSV = (content, i) => {
-  fs.writeFile('generatedData/generatedData.csv', content + "\n", (err) => {
+const saveToCSV = (content) => {
+  fs.appendFile('database/generatedData/generatedData.csv', content + "\n", (err) => {
     if (err) {
-      console.error(err);
+      console.error(err)
       return;
     }
     console.log('+++Successfully added review');
@@ -114,14 +146,16 @@ const saveToCSV = (content, i) => {
 
 // -------- create and save reviews to csv -------- //
 const createAndSaveReviews = (num) => {
+  console.log('create and save: ', num);
   if (num < 1) { return; }
   for (let i = 1; i <= num; i += 1) {
     const review = generateReview(i);
-    saveToCSV(review, i);
+    console.log('latest review: ', i);
+    saveToCSV(review);
   }
 };
 
 // -------- initialization -------- //
-const numberOfReviews = 10;
-console.log(`--- Initializing create and save ${numberOfReviews} Reviews`);
+const numberOfReviews = 5;
+console.log('initialize');
 createAndSaveReviews(numberOfReviews);
