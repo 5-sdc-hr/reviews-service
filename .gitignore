@@ -24,4 +24,4 @@ coverage
 build/
 
 dist/bundle.js
-database/generatedData.csv
+database/generatedData
