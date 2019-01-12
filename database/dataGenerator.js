@@ -136,26 +136,23 @@ const generateReview2 = (i) => {
 // -------- save review to CSV file -------- //
 const saveToCSV = (content) => {
   fs.appendFile('database/generatedData/generatedData.csv', content + "\n", (err) => {
-    if (err) {
-      console.error(err)
-      return;
-    }
+    if (err) { console.error(err); return; }
+
     console.log('+++Successfully added review');
   });
 };
 
 // -------- create and save reviews to csv -------- //
 const createAndSaveReviews = (num) => {
-  console.log('create and save: ', num);
   if (num < 1) { return; }
+
   for (let i = 1; i <= num; i += 1) {
     const review = generateReview(i);
-    console.log('latest review: ', i);
     saveToCSV(review);
   }
 };
 
 // -------- initialization -------- //
-const numberOfReviews = 5;
-console.log('initialize');
+const numberOfReviews = 100;
+console.log(`--- Initializing data generation for ${numberOfReviews} reviews`);
 createAndSaveReviews(numberOfReviews);
