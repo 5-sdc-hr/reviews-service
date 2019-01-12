@@ -100,59 +100,32 @@ const generateReview = (i) => {
   return newReview.toString();
 };
 
-const generateReview2 = (i) => {
-  const newReview = {
-    restaurant: {
-      id: generateRestaurantId(),
-    },
-    reviewer: {
-      id: i,
-      nickname: generateNickname(),
-      location: generateLocation(),
-      review_count: generateReviewCount(),
-      date_dined: generateDateDined(),
-    },
-    review: {
-      id: i,
-      ratings: {
-        overall: generateRatings(),
-        food: generateRatings(),
-        service: generateRatings(),
-        ambience: generateRatings(),
-        value: generateRatings(),
-        noise_level: generateNoiseLevel(),
-      },
-      recommend_to_friend: generateRecommend(),
-      text: generateReviewContent(),
-      helpful_count: generateHelpfulCount(),
-      tags: generateTags(),
-    },
+// -------- create and save reviews to csv -------- //
+const createAndSaveReviews = (numberOfReviews) => {
+  const stream = fs.createWriteStream('database/generatedData/generatedData.csv');
+  let i = 1;
+
+  const write = () => {
+    let proceed = true;
+    while (i <= numberOfReviews && proceed) {
+      const newReview = generateReview(i);
+      proceed = stream.write(newReview.concat('\n'), (err) => {
+        if (err) { console.err(err); }
+      });
+      i += 1;
+    }
+
+    if (!proceed) {
+      stream.once('drain', () => {
+        write();
+      });
+    }
   };
 
-  return newReview;
-};
-
-
-// -------- save review to CSV file -------- //
-const saveToCSV = (content) => {
-  fs.appendFile('database/generatedData/generatedData.csv', content + "\n", (err) => {
-    if (err) { console.error(err); return; }
-
-    console.log('+++Successfully added review');
-  });
-};
-
-// -------- create and save reviews to csv -------- //
-const createAndSaveReviews = (num) => {
-  if (num < 1) { return; }
-
-  for (let i = 1; i <= num; i += 1) {
-    const review = generateReview(i);
-    saveToCSV(review);
-  }
+  write();
 };
 
 // -------- initialization -------- //
-const numberOfReviews = 100;
+const numberOfReviews = 5;
 console.log(`--- Initializing data generation for ${numberOfReviews} reviews`);
 createAndSaveReviews(numberOfReviews);
