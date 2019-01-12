@@ -100,6 +100,49 @@ const generateReview = (i) => {
   return newReview.toString();
 };
 
+// -------- progress bar -------- //
+// const logProgress = (index, numberOfReviews) => {
+//   let percent = index / numberOfReviews;
+//   if (percent)
+//   console.log((index / numberOfReviews));
+// };
+
+const logProgress = (index, numberOfReviews) => {
+  if (index === 1) {
+    console.log('--- WRITING FIRST RECORD ---', Date.now());
+  }
+  if (index === Math.floor(1 * numberOfReviews / 10)) {
+    console.log('-- 10% complete');
+  }
+  if (index === Math.floor(2 * numberOfReviews / 10)) {
+    console.log('---- 20% complete');
+  }
+  if (index === Math.floor(3 * numberOfReviews / 10)) {
+    console.log('------ 30% complete');
+  }
+  if (index === Math.floor(4 * numberOfReviews / 10)) {
+    console.log('-------- 40% complete');
+  }
+  if (index === Math.floor(5 * numberOfReviews / 10)) {
+    console.log('---------- 50% complete');
+  }
+  if (index === Math.floor(6 * numberOfReviews / 10)) {
+    console.log('------------ 60% complete');
+  }
+  if (index === Math.floor(7 * numberOfReviews / 10)) {
+    console.log('-------------- 70% complete');
+  }
+  if (index === Math.floor(8 * numberOfReviews / 10)) {
+    console.log('---------------- 80% complete');
+  }
+  if (index === Math.floor(9 * numberOfReviews / 10)) {
+    console.log('------------------ 90% complete');
+  }
+  if (index === numberOfReviews) {
+    console.log('-------------------- 100% complete', Date.now());
+  }
+};
+
 // -------- create and save reviews to csv -------- //
 const createAndSaveReviews = (numberOfReviews) => {
   const stream = fs.createWriteStream('database/generatedData/generatedData.csv');
@@ -112,6 +155,7 @@ const createAndSaveReviews = (numberOfReviews) => {
       proceed = stream.write(newReview.concat('\n'), (err) => {
         if (err) { console.err(err); }
       });
+      logProgress(i, numberOfReviews);
       i += 1;
     }
 
@@ -126,6 +170,6 @@ const createAndSaveReviews = (numberOfReviews) => {
 };
 
 // -------- initialization -------- //
-const numberOfReviews = 5;
+const numberOfReviews = 100000;
 console.log(`--- Initializing data generation for ${numberOfReviews} reviews`);
 createAndSaveReviews(numberOfReviews);
