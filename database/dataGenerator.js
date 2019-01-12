@@ -100,46 +100,56 @@ const generateReview = (i) => {
   return newReview.toString();
 };
 
-// -------- progress bar -------- //
-// const logProgress = (index, numberOfReviews) => {
-//   let percent = index / numberOfReviews;
-//   if (percent)
-//   console.log((index / numberOfReviews));
-// };
+let startTime = 1;
+const logTimeToComplete = (endTime) => {
+  console.log('Completion time: ', (endTime - startTime) / 1000, ' seconds');
+}
 
+// -------- progress bar -------- //
 const logProgress = (index, numberOfReviews) => {
   if (index === 1) {
-    console.log('--- WRITING FIRST RECORD ---', Date.now());
+    console.log('--- WRITING FIRST RECORD ---');
+    startTime = Date.now();
   }
   if (index === Math.floor(1 * numberOfReviews / 10)) {
-    console.log('-- 10% complete');
+    console.log('10% complete');
+    logTimeToComplete(Date.now());
   }
   if (index === Math.floor(2 * numberOfReviews / 10)) {
-    console.log('---- 20% complete');
+    console.log('20% complete');
+    logTimeToComplete(Date.now());
   }
   if (index === Math.floor(3 * numberOfReviews / 10)) {
-    console.log('------ 30% complete');
+    console.log('30% complete');
+    logTimeToComplete(Date.now());
   }
   if (index === Math.floor(4 * numberOfReviews / 10)) {
-    console.log('-------- 40% complete');
+    console.log('40% complete');
+    logTimeToComplete(Date.now());
   }
   if (index === Math.floor(5 * numberOfReviews / 10)) {
-    console.log('---------- 50% complete');
+    console.log('50% complete');
+    logTimeToComplete(Date.now());
   }
   if (index === Math.floor(6 * numberOfReviews / 10)) {
-    console.log('------------ 60% complete');
+    console.log('60% complete');
+    logTimeToComplete(Date.now());
   }
   if (index === Math.floor(7 * numberOfReviews / 10)) {
-    console.log('-------------- 70% complete');
+    console.log('70% complete');
+    logTimeToComplete(Date.now());
   }
   if (index === Math.floor(8 * numberOfReviews / 10)) {
-    console.log('---------------- 80% complete');
+    console.log('80% complete');
+    logTimeToComplete(Date.now());
   }
   if (index === Math.floor(9 * numberOfReviews / 10)) {
-    console.log('------------------ 90% complete');
+    console.log('90% complete');
+    logTimeToComplete(Date.now());
   }
   if (index === numberOfReviews) {
-    console.log('-------------------- 100% complete', Date.now());
+    console.log('100% complete');
+    logTimeToComplete(Date.now());
   }
 };
 
