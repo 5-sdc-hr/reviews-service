@@ -16,6 +16,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --colors",
     "seedPostgres": "psql -U postgres < database/postgresSchema.sql",
+    "seedCouchDb": "cat database/generatedData/generatedCouchData.json | couchimport --database sdc --type jsonl",
     "generatePostgresData": "node database/postgresDataGenerator.js",
     "generateCouchData": "node database/couchDataGenerator.js"
   },
