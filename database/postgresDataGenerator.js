@@ -155,7 +155,7 @@ const logProgress = (index, numberOfReviews) => {
 
 // -------- create and save reviews to csv -------- //
 const createAndSaveReviews = (numberOfReviews) => {
-  const stream = fs.createWriteStream('database/generatedData/generatedData.csv');
+  const stream = fs.createWriteStream('database/generatedData/generatedPostgresData.csv');
   let i = 1;
 
   const write = () => {
