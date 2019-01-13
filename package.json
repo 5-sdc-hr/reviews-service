@@ -16,7 +16,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --colors",
     "seedPostgres": "psql -U postgres < database/postgresSchema.sql",
-    "generatePostgresData": "node database/postgresDataGenerator.js"
+    "generatePostgresData": "node database/postgresDataGenerator.js",
+    "generateCouchData": "node database/couchDataGenerator.js"
   },
   "dependencies": {
     "@types/url-parse": "^1.4.1",
