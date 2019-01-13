@@ -180,6 +180,6 @@ const createAndSaveReviews = (numberOfReviews) => {
 };
 
 // -------- initialization -------- //
-const numberOfReviews = 1000000;
+const numberOfReviews = 50000000;
 console.log(`--- Initializing data generation for ${numberOfReviews} reviews`);
-createAndSaveReviews(numberOfReviews);
+// createAndSaveReviews(numberOfReviews);
