@@ -5,7 +5,7 @@ const port = 3004;
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const db = require('./../database/index.js');
+const dbMongo = require('../database/mongoIndex.js');
 
 app.use(morgan('tiny'));
 app.use(bodyParser());
@@ -25,7 +25,7 @@ app.get('/api/restaurants/:id/reviews', (req, res) => {
     sortQuery = req.query.sort;
   }
   const parsedId = parseInt(req.params.id, 10);
-  db.retrieveReviews(parsedId, sortQuery, (err, results) => {
+  dbMongo.retrieveReviews(parsedId, sortQuery, (err, results) => {
     if (err) {
       res.status(404).end();
     }
