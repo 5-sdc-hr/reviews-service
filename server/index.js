@@ -4,7 +4,7 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const dbMongo = require('../database/mongoIndex.js');
+// const dbMongo = require('../database/mongoIndex.js');
 const dbPostgres = require('../database/postgresIndex.js');
 
 app.use(morgan('tiny'));
