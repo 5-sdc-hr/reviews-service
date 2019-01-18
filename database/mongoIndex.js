@@ -14,7 +14,7 @@ const conn = mongoose.createConnection(uri, {
 });
 conn.on('error', console.error.bind(console, 'MONGO connection error:'));
 conn.once('open', function() {
-  console.log('+++ Connected to MongoDB')
+  console.log('+++ Connected to MongoDB +++')
 });
 
 const reviewsSchema = mongoose.Schema({
