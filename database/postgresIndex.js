@@ -10,10 +10,6 @@ const pool = new Pool({
   port: `${process.env.PG_PORT}`,
 });
 
-pool.query('SELECT * FROM reserveme.reviews WHERE restaurant_id=1;', (err, res) => {
-  console.log(err, res.rows[0]);
-});
-
 const retrieveReviews = (restId, cb) => {
   pool.query(`SELECT * FROM reserveme.reviews WHERE restaurant_id=${restId}`, (err, reviews) => {
     if (err) console.log(err);
