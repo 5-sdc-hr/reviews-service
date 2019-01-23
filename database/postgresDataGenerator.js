@@ -9,11 +9,11 @@ const generateDateDined = () => faker.date.between('2016-01-01', '2018-12-21');
 const generateRatings = () => faker.random.number({ min: 1, max: 5 });
 const generateNoiseLevel = () => faker.random.arrayElement(['do not recall', 'quiet', 'moderate', 'energetic']);
 const generateRecommend = () => faker.random.boolean();
-const generateReviewContent = () => faker.lorem.paragraph();
+const generateReviewContent = () => faker.lorem.sentence();
 const generateHelpfulCount = () => faker.random.number({ min: 0, max: 3 });
 const generateTags = () => {
   const tagsArr = [];
-  let randNum = faker.random.number({ min: 0, max: 6 });
+  let randNum = faker.random.number({ min: 0, max: 2 });
   while (randNum) {
     tagsArr.push(faker.random.arrayElement([
       '"Late-night Find"',
@@ -27,28 +27,17 @@ const generateTags = () => {
       '"Paleo Friendly"',
       '"Afternoon Tea"',
       '"Sunday Lunch"',
-      '"Gluten Free Options"',
       '"Spicy"',
       '"Good for Birthdays"',
       '"Afternoon Coffee"',
-      '"Good for Groups"',
-      '"Notable Wine List"',
-      '"Fit for Foodies"',
-      '"Good Vegetarian Options"',
       '"Scenic View"',
-      '"Handcrafted Cocktails"',
       '"People Watching"',
-      '"Good for Anniversaries"',
-      '"Quiet Conversation"',
       '"Disabled Access"',
       '"Local Ingredients"',
       '"Seasonal"',
       '"Fun"',
-      '"Pre/post Theatre"',
       '"Authentic"',
       '"Live Sports"',
-      '"Vibrant Bar Scene"',
-      '"Great for Outdoor Dining"',
       '"Comfort Food"',
       '"Great Beer"',
       '"Tasting Menu"',
@@ -60,10 +49,8 @@ const generateTags = () => {
       '"Business Meals"',
       '"Quick Bite"',
       '"Healthy"',
-      '"Great for Brunch"',
       '"Organic"',
       '"Romantic"',
-      '"Good for a Date"',
       '"Neighborhood Gem"',
       '"Cozy"',
       '"Casual"',
@@ -180,6 +167,6 @@ const createAndSaveReviews = (numberOfReviews) => {
 };
 
 // -------- initialization -------- //
-const numberOfReviews = 50000000;
+const numberOfReviews = 30000000;
 console.log(`--- Initializing data generation for ${numberOfReviews} reviews`);
 // createAndSaveReviews(numberOfReviews);

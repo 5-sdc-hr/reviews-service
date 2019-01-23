@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 
 const app = express();
@@ -19,6 +20,15 @@ app.use((req, res, next) => {
   next();
 });
 
+// -------- postgres crud -------- //
+app.get('/api/restaurants/:id/reviews', (req, res) => {
+  const parsedId = parseInt(req.params.id, 10);
+  // go to redis
+  dbPostgres.retrieveReviews(parsedId, (err, reviews) => {
+    if (err) res.status(500).send(err);
+    if (reviews) res.status(200).send(reviews);
+  });
+});
 
 // // -------- mongo crud -------- //
 // app.get('/api/restaurants/:id/reviews', (req, res) => {
@@ -34,15 +44,6 @@ app.use((req, res, next) => {
 //     res.send(results);
 //   });
 // });
-
-// -------- postgres crud -------- //
-app.get('/api/restaurants/:id/reviews', (req, res) => {
-  console.log('HERE')
-  const parsedId = parseInt(req.params.id, 10);
-  dbPostgres.retrieveReviews(parsedId, (reviews) => {
-    res.send(reviews);
-  });
-});
 
 // -------- server -------- //
 const port = 3004;

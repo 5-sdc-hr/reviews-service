@@ -47,7 +47,7 @@ COPY reserveme.reviews(
   review_helpful_count,
   review_tags
 )
-FROM '/Users/ronarbel/Desktop/reviews-service/database/generatedData/generatedData.csv' CSV DELIMITER ',';
+FROM '/Users/ronarbel/Desktop/reviews-service/database/generatedData/generatedPostgresData.csv' CSV DELIMITER ',';
 
 
 /*  Execute this file from the command line by typing:

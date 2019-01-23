@@ -12,7 +12,10 @@ const pool = new Pool({
 
 const retrieveReviews = (restId, cb) => {
   pool.query(`SELECT * FROM reserveme.reviews WHERE restaurant_id=${restId}`, (err, reviews) => {
-    if (err) console.log(err);
+    if (err) {
+      console.log(err);
+      cb(err);
+    }
 
     const formattedReviews = reviews.rows.map((review) => {
       return {
@@ -44,7 +47,7 @@ const retrieveReviews = (restId, cb) => {
       };
     });
 
-    cb(formattedReviews);
+    cb(null, formattedReviews);
   });
 };
 
